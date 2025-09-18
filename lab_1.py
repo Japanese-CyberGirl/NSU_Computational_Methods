@@ -35,7 +35,7 @@ def exponent_range(dtype):
        value = test_value
        e_min -= 1
        
-   return e_min + 1 , e_max - 1
+   return e_min + 1 , e_max - 1 #так как нас интересует именно предпоследняя итерация
 
 def actual_exponent_range(dtype):
     info = np.finfo(dtype)

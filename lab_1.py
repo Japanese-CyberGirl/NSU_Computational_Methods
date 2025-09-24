@@ -93,6 +93,13 @@ print(np.float32(1.0) + np.float32(epsilon_32)/2)
 print(np.float32(1.0) + np.float32(epsilon_32))
 print(np.float32(1.0) + np.float32(epsilon_32) + np.float32(epsilon_32)/2) #???
 
+print("First comparing double pr")
+
+print(np.float64(1.0))
+print(np.float64(1.0) + np.float64(epsilon_64)/2)
+print(np.float64(1.0) + np.float64(epsilon_64))
+print(np.float64(1.0) + np.float64(epsilon_64) + np.float64(epsilon_64)/2) #???
+
 #print(np.float32(epsilon_32)/2)
 
 
@@ -111,8 +118,6 @@ e = (b + b)
 print(f"a + (b + b) = {a + e}")
 
 
-
-
 print("float64:")
 
 a , b = np.float64(1.0) , np.float64(10**(-16))
@@ -126,6 +131,7 @@ print(f"b + b = {b + b}")
 e = (b + b)
 print(f"a + (b + b) = {a + e}")
 
+print(f"epsilon_32 = {epsilon_32}")
+print(f"epsilon_64 = {epsilon_64}")
 
-
-
+print(f"1 + epsilon_64 = {np.float64(1.0) + np.float64(epsilon_64)}")

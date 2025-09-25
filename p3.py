@@ -219,14 +219,14 @@ for n in n_values:
 
 # график приближения относительной погрешности к машинному эпсилон
 fig10 = plt.figure(figsize=(12, 8))
-plt.semilogy(relative_errors, n_values, 'b-', linewidth=2, label='Относительная погрешность к эпсилон')
+plt.semilogy(n_values, relative_errors, 'b-', linewidth=2, label='Относительная погрешность к эпсилон')
 plt.axhline(y=epsilon, color='r', linestyle='--', linewidth=2, label=f'epsilon = {epsilon}')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
 
 fig11 = plt.figure(figsize=(12, 8))
-plt.semilogy([i - epsilon for i in relative_errors], time_list, 'b-', linewidth=2, label='модуль разности отн. погр и эпсилон по времени')
+plt.semilogy(time_list, [i - epsilon for i in relative_errors],  'b-', linewidth=2, label='модуль разности отн. погр и эпсилон по времени')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()

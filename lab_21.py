@@ -184,7 +184,7 @@ barier_r_m = get_barier(history_regula_mod, root_regula_mod, 0.1)
 
 # добавим еще число итераций всего и найденные корни
 data = {
-    "Метод": ["Дихотомия", "Regula falsi", "Regula falsi modified"],
+"Метод": ["Дихотомия", "Regula falsi", "Regula falsi modified"],
     "Итерации до accuracy": [acc_d, acc_r, acc_r_m],
     "Итерации до 0.1": [barier_d, barier_r, barier_r_m],
     "Всего итераций": [iter_dichotomy, iter_regula, iter_regula_mod],

@@ -135,3 +135,54 @@ print(f"epsilon_32 = {epsilon_32}")
 print(f"epsilon_64 = {epsilon_64}")
 
 print(f"1 + epsilon_64 = {np.float64(1.0) + np.float64(epsilon_64)}")
+
+for i in range(30):
+    print()
+
+
+
+
+print(f"mathematica emin_32 = {mathematical_exponent_range(8)}")
+print(f"mathematica emin_64 = {mathematical_exponent_range(11)}")
+
+
+def machine_epsilon_at_one(dtype):
+    one = dtype(1.0)
+    two = dtype(2.0)
+    eps = one
+
+    while one + eps != one:
+        eps_last = eps
+        eps = eps/two
+    return eps_last
+
+def local_epsilon(x, dtype):
+    one = dtype(1.0)
+    two = dtype(2.0)
+    temp = one
+    while x + temp != x:
+        temp_last = temp
+        temp = temp / two
+    return temp_last
+
+
+def emin_d(dtype):
+    x = dtype(1.0)
+    two = dtype(2.0)
+
+    e = 0
+
+    eps1 = machine_epsilon_at_one(dtype)
+
+    while True:
+        local_precision = local_epsilon(x, dtype)
+
+        if (local_precision != eps1 * x):
+            return e + 1
+        x /= two
+        e -= 1
+
+print(emin_d(np.float32))
+print(emin_d(np.float64))
+
+

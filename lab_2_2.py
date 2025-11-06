@@ -285,8 +285,8 @@ print(f"Время, затраченное на работу алгоритма 
 print()
 
 
-x_line = np.linspace(-2, 12, 400)
 fig_16 = plt.figure(figsize=(12, 8))
+x_line = np.linspace(-2, 12, 400)
 plt.plot(x_line, original_function_1(x_line), 'b-', linewidth=2, label='f(x)')
 plt.axhline(y=0, color='r', linestyle='--', linewidth=2, label='Корень уравнения')
 

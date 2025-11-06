@@ -13,6 +13,7 @@ def derivative_original_function_1(x):
 def original_function_2(x):
     return x**2*np.exp(x)
 
+
 x_values = [int(i) for i in range(-50, 50)]
 y_values_1 = [original_function_1(x) for x in x_values]
 y_values_2 = [original_function_2(x) for x in x_values]
@@ -589,13 +590,195 @@ compare_table.sort(key=lambda x: x[3])
 df = pd.DataFrame(compare_table, columns=["Метод", "Итерации", "Ответ", "Время (сек)"])
 print(df.to_string(index=False))
 
+print()
+
+for i in np.linspace(0, 1, 100):
+    print(f"x0 = {i} , root = {Steffensen_method(i)[0]} , iterations = {Steffensen_method(i)[1]}")
+
+x_values = [int(i) for i in range(340, 360)]
+y_values_1 = [original_function_1(x) for x in x_values]
+y_values_2 = [original_function_2(x) for x in x_values]
+
+fig_22 = plt.figure(figsize=(12, 8))
+plt.plot(x_values, y_values_1, 'b-', linewidth=2, label='f(x) = 4(1 - x²) - eˣ')
+plt.axhline(y=0, color='r', linestyle='--', linewidth=2, label='Корень уравнения')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('График функции f(x) = 4(1 - x²) - eˣ')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
+
+x_values = [int(i) for i in range(333, 335)]
+y_values_1 = [original_function_1(x) for x in x_values]
+y_values_2 = [original_function_2(x) for x in x_values]
+
+fig_23 = plt.figure(figsize=(12, 8))
+plt.plot(x_values, y_values_1, 'b-', linewidth=2, label='f(x) = 4(1 - x²) - eˣ')
+plt.axhline(y=0, color='r', linestyle='--', linewidth=2, label='Корень уравнения')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('График функции f(x) = 4(1 - x²) - eˣ')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
 
 
-# fig_2 = plt.figure(figsize=(12, 8))
-# plt.plot(x_values, y_values_2, 'g-', linewidth=2, label='f(x) = x² * eˣ')
-# plt.xlabel('x')
-# plt.ylabel('f(x)')
-# plt.title('График функции f(x) = x² * eˣ')
-# plt.legend()
-# plt.grid(True, alpha=0.3, which='both')
-#plt.show()
+x_values = [int(i) for i in range(0, 380)]
+y_values_1 = [original_function_1(x) for x in x_values]
+y_values_2 = [original_function_2(x) for x in x_values]
+
+fig_24 = plt.figure(figsize=(12, 8))
+plt.plot(x_values, y_values_1, 'b-', linewidth=2, label='f(x) = 4(1 - x²) - eˣ')
+plt.axhline(y=0, color='r', linestyle='--', linewidth=2, label='Корень уравнения')
+plt.xlabel('x')
+plt.ylabel('f(x)')
+plt.title('График функции f(x) = 4(1 - x²) - eˣ')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
+
+
+start_time = time.time()
+Stef_root, Stef_iterations, Stef_values = Steffensen_method(0.93)
+end_time = time.time()
+execution_time = end_time - start_time
+St_ex = execution_time
+Stef_iterations_array = [int(i) for i in range(Stef_iterations)]
+
+barier_St = 0
+for i in range(Stef_iterations):
+    if abs(Stef_values[i] - Stef_root) < 0.001:
+        barier_St = i
+        break
+
+fig_25 = plt.figure(figsize=(12, 8))
+plt.plot(Stef_iterations_array, Stef_values, 'm-', linewidth=2, label='Значение Steffensen method')
+plt.xlabel('Итерации')
+plt.axvline(barier_St, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_St}')
+plt.axhline(y=Stef_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {Stef_root:.4f}")
+plt.ylabel('Значение x')
+plt.title('Приближение методом Стеффенсена')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
+
+start_time = time.time()
+Stef_root, Stef_iterations, Stef_values = Steffensen_method(0.95)
+end_time = time.time()
+execution_time = end_time - start_time
+St_ex = execution_time
+Stef_iterations_array = [int(i) for i in range(Stef_iterations)]
+
+barier_St = 0
+for i in range(Stef_iterations):
+    if abs(Stef_values[i] - Stef_root) < 0.001:
+        barier_St = i
+        break
+
+fig_26 = plt.figure(figsize=(12, 8))
+plt.plot(Stef_iterations_array, Stef_values, 'm-', linewidth=2, label='Значение Steffensen method')
+plt.xlabel('Итерации')
+plt.axvline(barier_St, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_St}')
+plt.axhline(y=Stef_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {Stef_root:.4f}")
+plt.ylabel('Значение x')
+plt.title('Приближение методом Стеффенсена')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
+
+
+
+def Steffensen_method_data(x0):
+    iterations = 0
+    values = []
+    x = x0
+    f_x = original_function_1(x)
+    while (abs(f_x) > epsilon) and (iterations < max_iterations):
+        iterations += 1
+        f_x = original_function_1(x)
+        numerator = f_x
+        
+        denominator = original_function_1(x + f_x) - f_x
+        product = numerator / denominator * f_x
+        x_new = x - product
+        if (iterations < 15):
+            print()
+            print(f"iteration = {iterations}")
+            print(f"numerator = {f_x}")
+            print(f"denominator = {denominator}")
+            print(f"product = {product}")
+            print(f"x_new = {x_new}")
+            print()
+        values.append(x_new)
+        if (abs(x_new - x) < epsilon) or (abs(original_function_1(x_new)) < epsilon):
+            return x_new, iterations, values
+        x = x_new
+    return x, iterations, values
+
+print()
+print()
+print()
+print("Метод Стеффенсена для 0.89")
+Steffensen_method_data(0.89)
+print()
+print()
+print()
+print("Метод Стеффенсена для 0.93")
+Steffensen_method_data(0.93)
+print()
+print()
+print()
+print("Метод Стеффенсена для 0.95")
+Steffensen_method_data(0.95)
+
+
+
+newton_root, newton_iterations, newton_values = newton_method_1(0)
+newton_bis_root, newton_bis_iterations, newton_bis_values = newton_method_1(bisection(0, 20))
+#regula_root, regula_iterations, regula_values = regula_falsi(0, 20)
+mod_root, mod_iterations, mod_values = mod_regula_falsi(0, 20)
+secant_root, secant_iterations, secant_values = secant_method(0, 0.001)
+Stef_root, Stef_iterations, Stef_values = Steffensen_method(0)
+
+methods_data = {
+    "newton": newton_values,
+    "newton + bisection": newton_bis_values,
+    #"regula Falsi": regula_values,
+    "mod. regula Falsi": mod_values,
+    "secant": secant_values,
+    "Steffensen": Stef_values
+}
+
+roots = {
+    "newton": newton_root,
+    "newton + bisection": newton_bis_root,
+    #"regula falsi": regula_root,
+    "mod. regula falsi": mod_root,
+    "secant": secant_root,
+    "Steffensen": Stef_root
+}
+
+fig_27 = plt.figure(figsize=(12, 8))
+
+errors_newton = [abs(x - newton_root) for x in newton_values]
+errors_newton_bis = [abs(x - newton_bis_root) for x in newton_bis_values]
+errors_mod = [abs(x - mod_root) for x in mod_values]
+errors_secant = [abs(x - secant_root) for x in secant_values]
+errors_stef = [abs(x - Stef_root) for x in Stef_values]
+
+plt.plot(range(len(errors_newton)), errors_newton, label='Newton', linewidth=2)
+plt.plot(range(len(errors_newton_bis)), errors_newton_bis, label='Newton + Bisection', linewidth=2)
+plt.plot(range(len(errors_mod)), errors_mod, label='Mod. Regula Falsi', linewidth=2)
+plt.plot(range(len(errors_secant)), errors_secant, label='Secant', linewidth=2)
+plt.plot(range(len(errors_stef)), errors_stef, label='Steffensen', linewidth=2)
+
+plt.yscale('log')
+plt.xlabel('Количество итераций')
+plt.ylabel('Ошибка |xₙ - x*|')
+plt.title('Зависимость ошибки от количества итераций для различных методов')
+plt.legend()
+plt.grid(True, which='both', alpha=0.3)
+plt.show()
+
+

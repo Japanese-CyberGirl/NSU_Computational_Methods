@@ -91,7 +91,7 @@ for i in range(bisection_iterations):
 fig_3 = plt.figure(figsize=(12, 8))
 plt.plot(bisection_iterations_array, bisection_values, 'b-', linewidth=2, label='Значение бисекции')
 plt.xlabel('Итерации')
-plt.axvline(barier_d)
+plt.axvline(barier_d, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_d}')
 plt.axhline(y=bisection_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {bisection_root:.4f}")
 plt.ylabel('Значение c')
 plt.title('Приближение методом дихотомии')

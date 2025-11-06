@@ -39,7 +39,7 @@ def dichotomy_method(a , b , accuracy = 1e-6, max_iterations = 10000):
 def regula_falsi_method(a , b , accuracy = 1e-6 , max_iterations = 10000):
     if function(a) * function(b) >= 0:
         raise ValueError("Функция должна иметь разные знаки на концах интервала [a, b].")
-    
+        
     iterations = 0
     history = []
     

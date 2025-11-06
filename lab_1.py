@@ -185,4 +185,8 @@ def emin_d(dtype):
 print(emin_d(np.float32))
 print(emin_d(np.float64))
 
+print(epsilon_64)
+print(local_epsilon(np.float64(10**-16),np.float64))
+print(epsilon_64 > 2 * local_epsilon(np.float64(10**-16),np.float64))
+
 

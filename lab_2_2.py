@@ -164,7 +164,7 @@ def newton_method_1(x0):
     values = []
     x = x0
     f_x = original_function_1(x)
-    while (f_x < epsilon) and (iterations < max_iterations):
+    while (iterations < max_iterations):
         iterations += 1
         f_x = original_function_1(x)
         df_x = derivative_original_function_1(x)
@@ -181,6 +181,7 @@ start_time = time.time()
 newton_root, newton_iterations, newton_values = newton_method_1(0)
 end_time = time.time()
 execution_time = end_time - start_time
+newton_0_ex = execution_time
 newton_iterations_array = [int(i) for i in range(newton_iterations)]
 
 barier_n = 0
@@ -195,7 +196,7 @@ plt.xlabel('Итерации')
 plt.axvline(barier_n, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_n}')
 plt.axhline(y=newton_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {newton_root:.4f}")
 plt.ylabel('Значение x')
-plt.title('Приближение методом Ньютона')
+plt.title('Приближение методом Ньютона, x₀ = 0')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
@@ -220,7 +221,7 @@ plt.xlabel('Итерации')
 plt.axvline(barier_n, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_n}')
 plt.axhline(y=newton_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {newton_root:.4f}")
 plt.ylabel('Значение x')
-plt.title('Приближение методом Ньютона')
+plt.title('Приближение методом Ньютона, x₀ = -5')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
@@ -228,7 +229,11 @@ plt.show()
 print(f"Приблизительный ответ в методе Ньютона для стартовой величины {-5} достигается на итерации под номером = {barier_n}")
 print()
 
-newton_root, newton_iterations, newton_values = newton_method_1(5)
+start_time = time.time()
+newton_root, newton_iterations, newton_values = newton_method_1(20)
+end_time = time.time()
+execution_time = end_time - start_time
+newton_20_ex = execution_time
 newton_iterations_array = [int(i) for i in range(newton_iterations)]
 
 barier_n = 0
@@ -243,7 +248,7 @@ plt.xlabel('Итерации')
 plt.axvline(barier_n, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_n}')
 plt.axhline(y=newton_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {newton_root:.4f}")
 plt.ylabel('Значение x')
-plt.title('Приближение методом Ньютона')
+plt.title('Приближение методом Ньютона, x₀ = 5')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
@@ -269,7 +274,7 @@ plt.xlabel('Итерации')
 plt.axvline(barier_n, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_n}')
 plt.axhline(y=newton_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {newton_root:.4f}")
 plt.ylabel('Значение x')
-plt.title('Приближение методом Ньютона')
+plt.title('Приближение методом Ньютона, x₀ = 10')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
@@ -322,9 +327,10 @@ def bisection(a, b):
     return x
 
 start_time = time.time()
-newton_root, newton_iterations, newton_values = newton_method_1(bisection(0,10))
+newton_root, newton_iterations, newton_values = newton_method_1(bisection(0,20))
 end_time = time.time()
 execution_time = end_time - start_time
+newton_bis_ex = execution_time
 newton_iterations_array = [int(i) for i in range(newton_iterations)]
 
 barier_n = 0
@@ -344,7 +350,7 @@ plt.legend()
 plt.grid(True, alpha=0.3, which='both')
 plt.show()
 
-print(f"Приблизительный ответ в методе Ньютона для стартовой величины {bisection(0,10)} достигается на итерации под номером = {barier_n}")
+print(f"Приблизительный ответ в методе Ньютона для стартовой величины {bisection(0,20)} достигается на итерации под номером = {barier_n}")
 print(f"Время, затраченное на работу алгоритма при выборе точки с помощью метода дихотомии = {execution_time}")
 print()
 
@@ -382,6 +388,7 @@ start_time = time.time()
 regula_root, regula_iterations, regula_values = regula_falsi(0, 20)
 end_time = time.time()
 execution_time = end_time - start_time
+reg_ex = execution_time
 regula_iterations_array = [int(i) for i in range(regula_iterations)]
 
 barier_r = 0
@@ -395,7 +402,7 @@ plt.plot(regula_iterations_array, regula_values, 'g-', linewidth=2, label='Зн�
 plt.xlabel('Итерации')
 plt.axvline(barier_r, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_r}')
 plt.axhline(y=regula_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {regula_root:.4f}")
-plt.ylabel('Значение c')
+plt.ylabel('Значение x')
 plt.title('Приближение методом regula falsi')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
@@ -447,6 +454,7 @@ start_time = time.time()
 mod_root, mod_iterations, mod_values = mod_regula_falsi(0, 20)
 end_time = time.time()
 execution_time = end_time - start_time
+mod_ex = execution_time
 mod_iterations_array = [int(i) for i in range(mod_iterations)]
 
 barier_m = 0
@@ -460,7 +468,7 @@ plt.plot(mod_iterations_array, mod_values, 'm-', linewidth=2, label='Значе�
 plt.xlabel('Итерации')
 plt.axvline(barier_m, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_m}')
 plt.axhline(y=mod_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {mod_root:.4f}")
-plt.ylabel('Значение c')
+plt.ylabel('Значение x')
 plt.title('Приближение методом модифицированного regula falsi')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
@@ -494,6 +502,7 @@ start_time = time.time()
 secant_root, secant_iterations, secant_values = secant_method(0,0.001)
 end_time = time.time()
 execution_time = end_time - start_time
+sec_ex = execution_time
 secant_iterations_array = [int(i) for i in range(secant_iterations)]
 
 barier_s = 0
@@ -507,7 +516,7 @@ plt.plot(secant_iterations_array, secant_values, 'm-', linewidth=2, label='Зн�
 plt.xlabel('Итерации')
 plt.axvline(barier_s, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_s}')
 plt.axhline(y=secant_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {secant_root:.4f}")
-plt.ylabel('Значение c')
+plt.ylabel('Значение x')
 plt.title('Приближение методом секущих')
 plt.legend()
 plt.grid(True, alpha=0.3, which='both')
@@ -522,11 +531,64 @@ def Steffensen_method(x0):
     values = []
     x = x0
     f_x = original_function_1(x)
-    while (f_x < epsilon) and (iterations < max_iterations):
+    while (abs(f_x) > epsilon) and (iterations < max_iterations):
         iterations += 1
+        f_x = original_function_1(x)
         numerator = f_x
         denominator = original_function_1(x + f_x) - f_x
-        product = numerator / denominator * f_c
+        product = numerator / denominator * f_x
+        x_new = x - product
+        values.append(x_new)
+        if (abs(x_new - x) < epsilon) or (abs(original_function_1(x_new)) < epsilon):
+            return x_new, iterations, values
+        x = x_new
+    return x, iterations, values
+
+start_time = time.time()
+Stef_root, Stef_iterations, Stef_values = Steffensen_method(0)
+end_time = time.time()
+execution_time = end_time - start_time
+St_ex = execution_time
+Stef_iterations_array = [int(i) for i in range(Stef_iterations)]
+
+barier_St = 0
+for i in range(Stef_iterations):
+    if abs(Stef_values[i] - Stef_root) < 0.001:
+        barier_St = i
+        break
+
+fig_21 = plt.figure(figsize=(12, 8))
+plt.plot(Stef_iterations_array, Stef_values, 'm-', linewidth=2, label='Значение Steffensen method')
+plt.xlabel('Итерации')
+plt.axvline(barier_St, color='orange', linestyle='--', linewidth=2, label=f'ε < 0.001 на итерации {barier_St}')
+plt.axhline(y=Stef_root, color='r', linestyle='--', linewidth=2, label=f"Найденный корень = {Stef_root:.4f}")
+plt.ylabel('Значение x')
+plt.title('Приближение методом Стеффенсена')
+plt.legend()
+plt.grid(True, alpha=0.3, which='both')
+plt.show()
+
+print(f"Приблизительный ответ в методе Стеффенсена достигается на итерации под номером = {barier_St}")
+print(f"Время, затраченное на работу алгоритмы при визуальном выборе отрезке = {execution_time}")
+print()
+
+print("Сравнение методов")
+
+compare_table = []
+
+compare_table.append(("Ньютон (x₀ = 0)", newton_method_1(0)[1], newton_method_1(0)[0], newton_0_ex))
+compare_table.append(("Ньютон (x₀ = 20)", newton_method_1(20)[1], newton_method_1(20)[0], newton_20_ex))
+compare_table.append(("Ньютон x Дихотомия", newton_method_1(bisection(0,20))[1], newton_method_1(bisection(0,20))[0], newton_bis_ex))
+compare_table.append(("Regula Falsi", regula_iterations, regula_root, reg_ex))
+compare_table.append(("Mod. Regula Falsi", mod_iterations, mod_root, mod_ex))
+compare_table.append(("Секущих", secant_iterations, secant_root, sec_ex))
+compare_table.append(("Стеффенсена", Stef_iterations, Stef_root, St_ex))
+
+compare_table.sort(key=lambda x: x[3])
+
+df = pd.DataFrame(compare_table, columns=["Метод", "Итерации", "Ответ", "Время (сек)"])
+print(df.to_string(index=False))
+
 
 
 # fig_2 = plt.figure(figsize=(12, 8))

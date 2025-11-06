@@ -593,6 +593,7 @@ print(df.to_string(index=False))
 print()
 
 for i in np.linspace(0, 1, 100):
+    print(f"x0 = {i}")
     print(f"x0 = {i} , root = {Steffensen_method(i)[0]} , iterations = {Steffensen_method(i)[1]}")
 
 x_values = [int(i) for i in range(340, 360)]
@@ -750,35 +751,67 @@ methods_data = {
     "Steffensen": Stef_values
 }
 
-roots = {
-    "newton": newton_root,
-    "newton + bisection": newton_bis_root,
-    #"regula falsi": regula_root,
-    "mod. regula falsi": mod_root,
-    "secant": secant_root,
-    "Steffensen": Stef_root
-}
+# roots = {
+#     "newton": newton_root,
+#     "newton + bisection": newton_bis_root,
+#     #"regula falsi": regula_root,
+#     "mod. regula falsi": mod_root,
+#     "secant": secant_root,
+#     "Steffensen": Stef_root
+# }
 
 fig_27 = plt.figure(figsize=(12, 8))
 
-errors_newton = [abs(x - newton_root) for x in newton_values]
-errors_newton_bis = [abs(x - newton_bis_root) for x in newton_bis_values]
-errors_mod = [abs(x - mod_root) for x in mod_values]
-errors_secant = [abs(x - secant_root) for x in secant_values]
-errors_stef = [abs(x - Stef_root) for x in Stef_values]
+errors_newton = [abs(original_function_1(x)) for x in newton_values]
+errors_newton_bis = [abs(original_function_1(x)) for x in newton_bis_values]
+errors_mod = [abs(original_function_1(x)) for x in mod_values]
+errors_secant = [abs(original_function_1(x)) for x in secant_values]
+errors_stef = [abs(original_function_1(x)) for x in Stef_values]
 
-plt.plot(range(len(errors_newton)), errors_newton, label='Newton', linewidth=2)
-plt.plot(range(len(errors_newton_bis)), errors_newton_bis, label='Newton + Bisection', linewidth=2)
-plt.plot(range(len(errors_mod)), errors_mod, label='Mod. Regula Falsi', linewidth=2)
-plt.plot(range(len(errors_secant)), errors_secant, label='Secant', linewidth=2)
+plt.plot(range(len(errors_newton)), errors_newton, label='newton', linewidth=2)
+plt.plot(range(len(errors_newton_bis)), errors_newton_bis, label='newton + bisection', linewidth=2)
+plt.plot(range(len(errors_mod)), errors_mod, label='Mod. regula falsi', linewidth=2)
+plt.plot(range(len(errors_secant)), errors_secant, label='secant', linewidth=2)
 plt.plot(range(len(errors_stef)), errors_stef, label='Steffensen', linewidth=2)
 
 plt.yscale('log')
 plt.xlabel('Количество итераций')
-plt.ylabel('Ошибка |xₙ - x*|')
-plt.title('Зависимость ошибки от количества итераций для различных методов')
+plt.ylabel('Ошибка |f(xₙ)|')
+plt.title('Зависимость ошибки |f(xₙ)| от количества итераций для различных методов')
 plt.legend()
 plt.grid(True, which='both', alpha=0.3)
 plt.show()
 
 
+
+# def Steffensen_method_data_2(x0):
+#     iterations = 0
+#     values = []
+#     x = x0
+#     f_x = original_function_1(x)
+#     while (abs(f_x) > epsilon) and (iterations < max_iterations):
+#         iterations += 1
+#         f_x = original_function_1(x)
+#         numerator = f_x
+        
+#         denominator = original_function_1(x + f_x) - f_x
+#         product = numerator / denominator * f_x
+#         x_new = x - product
+#         print()
+#         print(f"iteration = {iterations}")
+#         print(f"numerator = {f_x}")
+#         print(f"denominator = {denominator}")
+#         print(f"product = {product}")
+#         print(f"x_new = {x_new}")
+#         print()
+#         values.append(x_new)
+#         if (abs(x_new - x) < epsilon) or (abs(original_function_1(x_new)) < epsilon):
+#             return x_new, iterations, values
+#         x = x_new
+#     return x, iterations, values
+
+# print()
+# print()
+# print("Strange Steffenson:")
+# print()
+# Steffensen_method_data_2(0.9494949494949496)

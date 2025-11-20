@@ -22,12 +22,13 @@ def function_sinus(amount_of_segments):
     lst[0], lst[-1] = 0, 0  
     return lst
 
-# def function_parabola(amount_of_segments):
-#     lst = []
-#     for i in range(amount_of_segments):
-#         lst.append(1)
-#     lst[0] , lst[-1] = 0 , 0
-#     return lst
+
+def function_const(amount_of_segments):
+    lst = []
+    for i in range(amount_of_segments):
+        lst.append(1)
+    lst[0] , lst[-1] = 0 , 0
+    return lst
 
 
 print("Введите число сегментов стержня N: ", end = "")
@@ -71,7 +72,11 @@ print()
 print()
 
 #start_values = function_sinus(N)
-start_values = function_parabola(N)
+#start_values = function_parabola(N)
+#start_values = function_test(N)
+start_values = function_const(N)
+
+print(start_values)
 
 matrix = np.zeros((N , t), dtype = float)
 
@@ -81,6 +86,7 @@ for i in range(N):
 test_matrix = matrix.copy()
 
 print()
+np.set_printoptions(precision=3, suppress=True)
 print(matrix)
 
 
@@ -109,7 +115,7 @@ def B_determination(matrix, t):
 
     B.append(matrix[1][t-1] * Lambda + matrix[0][t] * theta)
 
-    for j in range(1, N-3):
+    for j in range(2, N-2):
         B.append(matrix[j][t-1] * Lambda)
 
     B.append(matrix[-2][t-1] * Lambda + matrix[-1][t] * theta)

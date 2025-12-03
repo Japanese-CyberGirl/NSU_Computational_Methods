@@ -22,7 +22,6 @@ def function_sinus(amount_of_segments):
     lst[0], lst[-1] = 0, 0  
     return lst
 
-
 def function_const(amount_of_segments):
     lst = []
     for i in range(amount_of_segments):
@@ -49,7 +48,7 @@ print()
 
 print("Введите коэффициент теплопроводности α: ", end = "")
 global alpha
-alpha = int(input())
+alpha = float(input())
 #alpha = 1.0
 
 print()
@@ -57,7 +56,8 @@ print()
 
 print("Введите длину стержня h: ", end = "")
 global h
-h = int(input())
+h = float(input())
+h /= N
 #h = 1.0
 
 print()
@@ -65,18 +65,20 @@ print()
 
 print("Введите размер временного сегмента в условных единицах измерения Δt: ", end = "")
 global delta
-delta = int(input())
+#delta = float(input())
+delta = t / N
 #delta = 1.0
 
 print()
 print()
 
 #start_values = function_sinus(N)
-#start_values = function_parabola(N)
-#start_values = function_test(N)
-start_values = function_const(N)
+start_values = function_parabola(N)
+#start_values = function_const(N)
 
+print("Start values:")
 print(start_values)
+print()
 
 matrix = np.zeros((N , t), dtype = float)
 
@@ -122,12 +124,12 @@ def B_determination(matrix, t):
 
     return B
 
-a = np.full(N-2, -theta)
+a = np.full(N-2, -theta) #верхняя диагональ
 a[0] = 0
 
-b = np.ones(N-2)
+b = np.ones(N-2) # главная диагональ
 
-c = np.full(N-2, -theta)
+c = np.full(N-2, -theta) # нижняя диагональ
 c[-1] = 0
 
 
@@ -187,3 +189,38 @@ plt.xlabel("Время (t)")
 plt.ylabel("Сегменты стержня")
 plt.title("Heatmap распределения температуры")
 plt.show()
+
+
+
+
+from mpl_toolkits.mplot3d import Axes3D
+
+X, Y = np.meshgrid(range(t), range(N))
+
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, matrix, cmap='viridis')
+ax.set_xlabel('Time')
+ax.set_ylabel('Position')
+ax.set_zlabel('Temperature')
+plt.title("3D Surface of Temperature Evolution")
+plt.show()
+
+
+
+
+from matplotlib.animation import FuncAnimation
+
+fig, ax = plt.subplots(figsize=(8, 5))
+line, = ax.plot(matrix[:, 0])
+ax.set_ylim(np.min(matrix), np.max(matrix))
+
+def update(frame):
+    line.set_ydata(matrix[:, frame])
+    ax.set_title(f"Temperature at t={frame}")
+    return line,
+
+ani = FuncAnimation(fig, update, frames=t, interval=50)
+plt.show()
+
+
